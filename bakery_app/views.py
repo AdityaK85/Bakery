@@ -37,7 +37,7 @@ def index(request , user):
 @handle_admin_page_exception
 def Categories(request , user):
     cat_obj = Category.objects.all().order_by('-id')
-    string = render_to_string('render_to_String/r_t_s_category_item.html', {'category_obj': cat_obj})
+    string = render_to_string('render_to_String/r_t_s_categoryItem.html', {'category_obj': cat_obj})
     context = {'string': string} 
     return render( request,  'htmls/add_new_item.html', context )
 
