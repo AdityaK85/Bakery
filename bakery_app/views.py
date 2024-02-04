@@ -33,17 +33,11 @@ def index(request , user):
     context = {'total_revenue': total_revenue , 'sales_count' : sales_count , 'purchased_count' : purchased_count }
     return render( request,  'htmls/dashboard.html' , context)
 
-
-
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @handle_admin_page_exception
 def CategoriesItem(request , user):
     cat_obj = Category.objects.all().order_by('-id')
-    string = None
-    try:
-        string = render_to_string('render_to_String/categoryItem.html', {'category_obj': cat_obj})
-    except:
-        pass
+    string = render_to_string('render_to_String/r_t_s_categoryItem.html', {'category_obj': cat_obj})
     context = {'string': string} 
     return render( request,  'htmls/add_new_item.html', context )
 
@@ -54,7 +48,7 @@ def CategoriesItem(request , user):
 def viewCategory(request , user,  id):
 	cat_obj = SubCategory.objects.filter(fk_category_id = id).order_by('-id')
 	cat_name = Category.objects.get(id = id)
-	string = render_to_string('render_to_String/BMSviewCategory.html', {'category_obj': cat_obj})
+	string = render_to_string('render_to_String/r_t_s_viewCategory.html', {'category_obj': cat_obj})
 	context = {'string': string , 'cat_name':cat_name}  
 	return render( request,'htmls/viewCategory.html', context)
 
