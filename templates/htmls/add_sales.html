@@ -1,0 +1,315 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block title %}Sales{% endblock %}
+
+{% block customCDNS %}
+{% endblock %}
+
+{% block customStyles %}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl">
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Add Items </h5>
+          <small class="text-muted float-end">Sale</small>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+              <label class="form-label" for="basic-default-fullname">Select Categroy</label>
+              <select type="text" class="form-select" onchange=ChangeCategory(this.value)  id="basic-default-fullname" placeholder="John Doe" />
+              <option selected value="0" >Select Category</option>
+              {% for i in cat_obj  %}
+                <option value="{{i.id}}"  > {{i.category_name}} </option>
+              {% endfor %}
+              
+            </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="basic-default-company"> Items</label>
+              <div id="render_item" class="row" >
+                {% if rendered %}
+                  {{rendered}}
+                {% else %}
+                  <center> <h6>Select the Item</h6> </center>
+                {% endif %}
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl">
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Sale</h5>
+          <small class="text-muted float-end">Digital Service</small>
+        </div>
+            <div class="card-body ">
+              <div class="selected_item" >
+              </div>
+          <form>
+            <div class="mb-3">
+              <label class="form-label" for="basic-icon-default-fullname">Full Name</label>
+              <div class="input-group input-group-merge">
+                <span id="basic-icon-default-fullname2" class="input-group-text"
+                  ><i class="bx bx-user"></i
+                ></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="customer_fullname"
+                  placeholder="John Doe"
+                  aria-label="John Doe"
+                  aria-describedby="basic-icon-default-fullname2"
+                />
+              </div>
+            </div>
+            
+            
+            <div class="mb-3">
+              <label class="form-label" for="basic-icon-default-phone">Phone No</label>
+              <div class="input-group input-group-merge">
+                <span id="basic-icon-default-phone2" class="input-group-text"
+                  ><i class="bx bx-phone"></i
+                ></span>
+                <input
+                  type="text"
+                  id="customer_phone"
+                  oninput="this.value = this.value.replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10"
+                  class="form-control phone-mask"
+                  placeholder="658 799 8941"
+                  aria-label="658 799 8941"
+                  aria-describedby="basic-icon-default-phone2"
+                />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="basic-icon-default-phone">Email</label>
+              <div class="input-group input-group-merge">
+                <span id="basic-icon-default-phone2" class="input-group-text"
+                  >@  </span>
+                <input
+                  type="text"
+                  id="customer_email"
+                  class="form-control phone-mask"
+                  placeholder="example@gmail.com"
+                  aria-label="658 799 8941"
+                  aria-describedby="basic-icon-default-phone2"
+                />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="basic-icon-default-phone">Order Date</label>
+              <div class="input-group input-group-merge">
+                <span id="basic-icon-default-phone2" class="input-group-text"
+                  ><i class="menu-icon tf-icons bx bx-table" ></i> </span>
+                <input
+                  type="date"
+                  id="order_date"
+                  class="form-control phone-mask"
+                />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="basic-icon-default-message">Address</label>
+              <div class="input-group input-group-merge">
+                <span id="basic-icon-default-message2" class="input-group-text"
+                  ><i class='bx bxs-edit-location' ></i></span>
+                <textarea
+                  id="customer_address"
+                  class="form-control"
+                  placeholder="Enter customer address "
+                  aria-label="Hi, Do you have a moment to talk Joe?"
+                  aria-describedby="basic-icon-default-message2"
+                ></textarea>
+              </div>
+            </div>
+            <script>
+              
+            </script>
+            <button type="button" class="btn btn-primary" onclick="add_sale(item_list)">Checkout</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+
+{% block customScripts %}   
+<script type="module" src="{% static 'js/sales.js' %}"></script>
+<script>
+  
+
+var item_list = []
+
+window.Add_to_list = function(id, item_img, item_name, price, qty , main_price) {
+
+    var lst_the_item = true
+    for (var i = 0; i < item_list.length; i++) {
+
+        var check_selected_item_id  = `itemCard_${id}`
+
+        var item = item_list[i];
+        for (var key in item) {
+            if (item.hasOwnProperty(key)) {
+                var itemCardId = key;
+                var itemDetails = item[key];
+
+                if (itemCardId == check_selected_item_id) {
+                  lst_the_item = false
+                  iziToast.show({
+                      title: 'Already Added',
+                      message: 'Item Already you added in sales list'
+                  });
+                } 
+                
+
+                for (var prop in itemDetails) {
+                    if (itemDetails.hasOwnProperty(prop)) {
+                        //console.log(prop + ": " + itemDetails[prop]);
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    if (lst_the_item) {
+
+        var item_dict = {
+            [`itemCard_${id}`]: {
+                'id': id,
+                'qty': qty,
+                'price':price ,
+                'main_price':main_price
+            }
+        };
+        item_list.push(item_dict);
+
+
+
+        if (!isItemAdded(id)) {
+            // Create a new div element
+            var newCard = document.createElement('div');
+            newCard.className = 'card mb-2';
+            newCard.id = 'itemCard_' + id;
+
+            // Construct the HTML for the new card
+            newCard.innerHTML = `
+                <div class="row g-0" style="height: 90px;">
+                    <div class="col-md-3">
+                        <img class="card-img my-4 mx-3 rounded card-img-left" src="${item_img}" style="height: 50px; width: 50px;" alt="Card image">
+                    </div>
+                    <div class="col-md-8" style="margin-left: -34px;margin-top: -12px;">
+                        <div class="card-body">
+                            <h5 class="card-title">${item_name}</h5>
+                            <div class="input-group input-group-sm" style="width: 100%;">
+                              <span class="input-group-text">QTY</span>
+                              <span class="input-group-text" id='update_list_qty_${id}' >${qty}</span>
+                              <span class="input-group-text">Price</span>
+                              <span class="input-group-text" id='update_list_price_${id}' >${price} /-</span>
+                            </div>
+                            <button class="btn btn-sm btn-danger float-end" style="margin-top: -29px;margin-right: -61px;" onclick="removeItem('${id}')">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            try {
+                // Append the new card to the existing card-body
+                document.querySelector('.selected_item').appendChild(newCard);
+                $(`#add_to_list_btn_${id}`).hide()
+                $(`#update_to_list_btn_${id}`).show()
+
+            } catch (error) {
+                console.error('Error adding item:', error);
+            }
+        }
+      }
+};
+
+function isItemAdded(id) {
+  var addedItems = document.querySelectorAll('.card.mb-2');
+  return Array.from(addedItems).some((item) => item.id === 'itemCard_' + id);
+}
+
+
+
+window.update_item = function(val_id){
+
+    var qty = $(`#sale_qty_${val_id}`).val()
+    var price = $(`#sale_price_${val_id}`).val()
+    
+    for (var i = 0; i < item_list.length; i++) {
+      var item = item_list[i];
+
+      for (var key in item) {
+          if (item.hasOwnProperty(key)) {
+            var itemCardId = key;
+            var itemDetails = item[key];
+
+            for (var prop in itemDetails) {
+              if (itemDetails.hasOwnProperty(prop)) {
+                if (itemDetails.id === val_id) {
+                  itemDetails.qty = qty;
+                  itemDetails.price = price;
+                  $(`#update_list_qty_${val_id}`).html(qty)
+                  $(`#update_list_price_${val_id}`).html(price)
+                }
+              }
+            }
+          }
+      }
+  }
+}
+
+
+
+
+function removeItem(id) {
+
+    var indexToRemove = -1;
+    for (var i = 0; i < item_list.length; i++) {
+        var item = item_list[i];
+        for (var key in item) {
+            if (item.hasOwnProperty(key)) {
+                var itemCardId = key;
+                var itemDetails = item[key];
+                if (itemDetails.id === id) {
+                    $(`#sale_qty_${id}`).val(1)
+                    $(`#sale_price_${id}`).val(itemDetails.main_price)
+                    indexToRemove = i;
+                    break;
+                }
+            }
+        }
+        if (indexToRemove !== -1) {
+            break;
+        }
+    }
+
+    var cardToRemove = document.getElementById('itemCard_' + id);
+    if (cardToRemove) {
+        cardToRemove.remove();
+    }
+
+    document.getElementById('add_to_list_btn_' + id).style.display = 'inline-block';
+    document.getElementById('update_to_list_btn_' + id).style.display = 'none';
+
+    if (indexToRemove !== -1) {
+        item_list.splice(indexToRemove, 1);
+    }
+}
+
+
+</script>
+	
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block title %}Account{% endblock %}
+
+{% block customCDNS %}
+{% endblock %}
+
+{% block customStyles %}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="">
+    <div class="col-12 ">
+        <div class="card mb-4 justify-content-center">
+        <h5 class="card-header">Account</h5>
+        <div class="card-body">
+            <div class="row mb-1 align-items-center">
+                <div class="col-md-6">
+                  <div class="card mb-3">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img class="card-img card-img-left" src="https://t4.ftcdn.net/jpg/04/75/00/99/360_F_475009987_zwsk4c77x3cTpcI3W1C1LU4pOSyPKaqi.jpg" alt="Card image">
+                      </div>
+                      <div class="col-md-8  my-5">
+                        <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <h5 class="card-title">Username</h5>
+                                <p class="card-text">
+                                  {{user_obj.username}}
+                                </p>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="card-title">Password</h5>
+                                <p class="card-text">
+                                  <span id="view_password" >********</span> <span style="cursor: pointer;" class="mx-2" data-bs-toggle="modal" data-bs-target="#smallModal" ><i class='bx bx-low-vision'></i></span>
+                                </p>
+                            </div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <p class="demo-inline-spacing">
+            <a class="btn btn-primary me-1" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true" aria-controls="collapseExample">
+                Update
+            </a>
+            <button class="btn btn-secondary me-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                Closed
+            </button>
+            </p>
+            <div class="collapse" id="collapseExample" style="">
+            <div class="d-grid d-sm-flex p-3 border">
+                <div class="mb-3">
+                    <label class="form-label" for="basic-default-fullname">Username</label>
+                    <input type="text" class="form-control" id="change_username" placeholder="admin">
+                  </div>
+                <div class="mb-3 mx-3">
+                    <label class="form-label" for="basic-default-fullname">Current Password</label>
+                    <input type="text" class="form-control" id="current_pwd" placeholder="********">
+                  </div>
+                <div class="mb-3 mx-3">
+                    <label class="form-label" for="basic-default-fullname">New Password</label>
+                    <input type="text" class="form-control" id="change_pwd" placeholder="********">
+                  </div>
+                <div class="mb-3 my-4 " style="margin-top: 29px !important;">
+                    <label class="form-label" for="basic-default-fullname"></label>
+                    <button class="btn btn-success" onclick="changePassword()" >Update</button>
+                  </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel2">Password </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col mb-3">
+              <label for="nameSmall" class="form-label">Password</label>
+              <input type="text" id="view_pwd" class="form-control" placeholder="Enter Password" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" onclick="viewPassword()" >View</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+
+{% block customScripts %}   
+<script type="module" src="{% static 'js/account.js' %}"></script>
+	
+{% endblock %}

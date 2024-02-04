@@ -1,0 +1,28 @@
+<table id="recived_order_tbl" class="table table-bordered" >
+    <thead>
+    <tr>
+        <th>Sr.no</th>
+        <th>Order Id</th>
+        <th>Customer Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Payment Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for i in sale_obj %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.order_id}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.phone}}</td>
+                <td>{{i.email}}</td>
+                <td><span class="badge rounded-pill bg-{% if i.status == 'SUCCESS' %}success{% elif i.status == 'CANCLED' %}danger{% else %}warning{% endif %} me-1">{{i.status}}</span></td>
+                <td>
+                <a href="/itemDetails/{{i.id}}"> <i class='bx bx-link-external'></i> </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

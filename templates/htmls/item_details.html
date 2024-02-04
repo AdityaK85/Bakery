@@ -1,0 +1,124 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block title %}Item Details{% endblock %}
+
+{% block customCDNS %}
+{% endblock %}
+
+{% block customStyles %}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10 float-center">
+        <div class="card">
+            <div class="card-body">
+                <div class="invoice-title">
+                    <button class="btn block float-end btn-sm btn-{% if item_obj.status == 'SUCCESS' %}success{% elif item_obj.status == 'CANCLED' %}danger{% else %}warning{% endif %} waves-effect waves-light mx-2">{{item_obj.status}}</button>
+                    <button type="button" onclick="window.history.back();" class="btn block float-end btn-sm btn-primary waves-effect waves-light "><i class='bx bx-arrow-back mx-2'></i>Back</button>
+                    <div class="mb-4">
+                       <span> <strong style="font-size: 20px;">Order ID {{item_obj.order_id}}</strong> </span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <address>
+                            <strong>Customer </strong><br>
+                            {{item_obj.name}}
+                            <br>
+                        </address>
+                    </div>
+                    <div class="col-sm-6 text-sm-end">
+                        <address>
+                            <strong>Bakery </strong><br>
+                            Ourbakery.com
+                            <br>
+                        </address>
+                    </div>
+                    <div class="col-sm-6 ">
+                        <address>
+                            <strong>Locations </strong><br>
+                            {{item_obj.address}} <br>
+                        </address>
+                    </div>
+                    <div class="col-sm-6  text-sm-end">
+                        <address>
+                            <strong>Date </strong><br>
+                            {{item_obj.order_date}} <br>
+                        </address>
+                    </div>
+                </div>
+                <div class="py-2 mt-3">
+                    <h3 class="font-size-15 fw-bold">Item summary</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-nowrap">
+                        <thead>
+                            <tr>
+                                <th style="width: 70px;">No.</th>
+                                <th>Item</th>
+                                <th class="">Per Item Price</th>
+                                <th class=""> Quantity</th>
+                                <th class="">Tax</th>
+                                <th class="text-end">Price <small>(Tax Included Price)</small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for i in item_details %}
+
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{i.item_name}}</td>
+                                    <td class="text-left" >{{i.main_price}}</td>
+                                    <td class="text-left">{{i.quantity}}</td>
+                                    <td class="text-left"> {% if i.item_tax == 'Free' %}
+                                        Tax Free 
+                                    {% else %}
+                                        {{i.item_tax}}%
+                                    {% endif %} </td>
+                                    <td class="text-end">{{i.price}}</td>
+                                </tr>
+                            
+                            {% endfor %}
+                            
+
+                            <tr>
+                                <td colspan="5" class=" text-end border-0">
+                                    <strong>Total </strong></td>
+                                <td class=" text-end border-0"><h4 class="m-0"> Rs. {{total_price}}  </h4></td>
+                            </tr>
+
+                            
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="d-print-none my-3">
+                    <div class="float-end">
+                        <button class="btn btn-sm btn-primary" onclick="print()" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<i class='bx bx-printer'></i> <span>Print this invoice</span>" > Print</button>
+                        <button class="btn btn-sm btn-primary"  onclick="send_invoice_to_email('{{item_obj.id}}')" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<i class='bx bx-bell bx-xs' ></i> <span>Send Invoice To Customer</span>" > Send Invoice</button>
+                        {% if item_obj.status == 'PENDING' %}
+                            <button  class="btn btn-sm btn-secondary" onclick="cod_payment('{{item_obj.id}}')"  data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<i class='bx bx-bell bx-xs' ></i> <span>Order payment status will be changed to success after clicking COD </span>" >Cash on delivery</button>
+                            <button  class="btn btn-sm btn-primary" onclick="make_payment('{{item_obj.id}}' , '{{total_price}}' , 'send_link')"  data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<i class='bx bx-bell bx-xs' ></i> <span>Send Payment Link To Customer</span>" >Send Payment Link</button>
+                            <button  class="btn btn-sm btn-primary" onclick="make_payment('{{item_obj.id}}' , '{{total_price}}' , 'make_payment' )"  data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<i class='bx bx-bell bx-xs' ></i> <span>Customer-Initiated Payment Process</span>" > Make Payment</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block customScripts %}   
+<script type="module" src="{% static 'js/item_details.js' %}"></script>
+	
+{% endblock %}

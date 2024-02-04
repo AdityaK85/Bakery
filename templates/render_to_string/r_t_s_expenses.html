@@ -1,0 +1,32 @@
+<table id="exp_tbl" class="table table-bordered" >
+    <thead>
+    <tr>
+        <th>Sr.no</th>
+        <th>Expenses Category</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Recipt Image</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for i in exp_obj %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.category}}</td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-sm text-nowrap" data-bs-toggle="popover" data-bs-offset="0,14" data-bs-placement="top" data-bs-html="true" data-bs-content="<p>{{i.description}}</p> <div class='d-flex justify-content-between'>" title="" >
+                        Description
+                      </button> 
+                </td>
+                <td>{{i.amount}}</td>
+                <td>{{i.date}}</td>
+                <td><span class="badge rounded-pill bg-secondary" ><a href="{{i.receipt_image.url}}" target="_blank" class="text-white" >View Recipt</a></span> </td>
+                <td>
+                    <button class="btn btn-danger btn-sm" onclick="delete_exp('{{i.id}}')" ><i class='bx bxs-trash-alt '></i> Delete</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

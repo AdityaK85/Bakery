@@ -1,0 +1,63 @@
+
+
+<div class="col-lg-12 mb-4 mb-xl-0">
+    <div class="row">
+        <div class="col-6">
+            <div class="demo-inline-spacing mt-3">
+                <ol class="list-group">
+                    <li class="list-group-item font-weight-bold"><strong>Category</strong> </li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="demo-inline-spacing mt-3">
+                <ol class="list-group">
+                    <li class="list-group-item font-weight-bold"><strong>Revenue</strong> </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% for i in  sale_report_obj %}
+
+<div class="col-lg-12 mb-4 mb-xl-0">
+    <div class="row">
+        <div class="col-6">
+            <div class="demo-inline-spacing mt-3">
+                <ol class="list-group">
+                    <li class="list-group-item">{{ i.category }}</li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="demo-inline-spacing mt-3">
+                <ol class="list-group">
+                    <li class="list-group-item">{{ i.revenue }} /-</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+
+<div class="col-lg-12 mb-4 mb-xl-0">
+    <div class="row">
+        <div class="col-6">
+            <div class="demo-inline-spacing mt-3">
+                <ol class="list-group">
+                    <li class="list-group-item font-weight-bold"><strong>Total Revenue</strong> </li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="demo-inline-spacing mt-3">
+                <ol class="list-group">
+                    <li class="list-group-item font-weight-bold"><strong>{{total_revenue}}</strong> </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block title %}Category{% endblock %}
+
+{% block customCDNS %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css" integrity="sha512-PT0RvABaDhDQugEbpNMwgYBCnGCiTZMh9yOzUsJHDgl/dMhD9yjHAwoumnUk3JydV3QTcIkNDuN40CJxik5+WQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block customStyles %}
+{% endblock %}
+
+
+
+{% block content %}
+
+<button
+	type="button"
+	class="btn btn-primary float-end "
+	data-bs-toggle="modal"
+	data-bs-target="#backDropModal"
+	>Add New </button>
+
+<div class="row justify-content-center text-left">
+	<div class="col-xl-12">
+		<div class="mb-4">
+			<h4>Categories</h4>
+		</div>
+	</div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive text-nowrap">
+           {{string}}
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
+	<div class="modal-dialog">
+	  <form class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="backDropModalTitle">Add New Category</h5>
+		  <button
+			type="button"
+			class="btn-close"
+			data-bs-dismiss="modal"
+			aria-label="Close"
+		  ></button>
+		</div>
+		<div class="modal-body">
+		  <div class="row g-2">
+			<div class="col mb-0">
+			  <label for="emailBackdrop" class="form-label">Category Name</label>
+			  <input
+				type="text"
+				id="category_name"
+				class="form-control"
+				placeholder="Category Name"
+			  />
+			</div>
+			<div class="col mb-0">
+			  <label for="dobBackdrop" class="form-label">Tax</label>
+			  <div class="custom-select">
+				<select id="dropdown" class="form-select" >
+				  <option value="Free">Tax Free</option>
+				  <option value="custom_tax">Enter Tax</option>
+				</select>
+				<input type="text" class="form-control my-2" id="customInput" placeholder="Enter Tax" style="display:none;">
+				<input type="hidden"  id="category_id" disabled  style="display:none;">
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+			Close
+		  </button>
+		  <button type="button" onclick="add_category()" id="model_save_btn" class="btn btn-primary" value="Save" >Save</button>
+		</div>
+	  </form>
+	</div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block customScripts %}   
+<script type="module" src="{% static 'js/touchPos.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+
+	document.addEventListener("DOMContentLoaded", function() {
+		const selectDropdown = document.getElementById("dropdown");
+		const customInput = document.getElementById("customInput");
+		
+		selectDropdown.addEventListener("change", function() {
+			if (selectDropdown.value === "custom_tax") {
+			customInput.style.display = "inline-block";
+			} else {
+			customInput.style.display = "none";
+			}
+		});
+		});
+
+</script>
+{% endblock %}

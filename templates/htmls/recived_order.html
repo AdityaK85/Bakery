@@ -1,0 +1,37 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block title %}Orders{% endblock %}
+
+{% block customCDNS %}
+{% endblock %}
+
+{% block customStyles %}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="row justify-content-center text-left">
+    <div class="col-xl-12">
+        <div class="mb-4">
+            <h4>Recived Orders</h4>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive text-nowrap">
+            {{rendered}}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block customScripts %}   
+<script type="module" src="{% static 'js/recivedOrder.js' %}"></script>
+	
+{% endblock %}

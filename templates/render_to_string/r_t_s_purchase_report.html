@@ -1,0 +1,26 @@
+
+
+<div class="col-lg-12 mb-4 mb-xl-0">
+    <div class="row">
+        <div class="col-6">
+            <div class="demo-inline-spacing mt-3">
+                <ol class="list-group">
+                    <li class="list-group-item font-weight-bold"><strong>Product</strong> </li>
+                    <li class="list-group-item font-weight-bold"><strong>{{obj}}</strong> </li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="demo-inline-spacing mt-3">
+                <ol class="list-group">
+                    <li class="list-group-item font-weight-bold"><strong>Revenue</strong> </li>
+                    <li class="list-group-item font-weight-bold">{% if total_rev %}
+                    {{total_rev}}/- 
+                    {% else %}
+                    ---
+                    {% endif %}   </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

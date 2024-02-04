@@ -1,0 +1,25 @@
+{% load static %}
+
+{% for i in category_obj %}
+
+<div class="col-md-5">
+  <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-3">
+        <img class="card-img my-4 mx-3 rounded card-img-left" src="{% if i.sub_category_img %} {{i.sub_category_img.url}} {% else %} {% static 'assets/img/elements/12.jpg' %} {% endif %} " alt="Card image">
+      </div>
+      <div class="col-md-8 mx-3">
+        <div class="card-body">
+          <h5 class="card-title">{{i.sub_category_name}}</h5>
+          <p class="card-text">
+            Price : {{i.price}} /- | In Stock : {{i.qty}}
+          </p>
+          <button class="btn btn-sm btn-info" onclick="updateItemCollaps('{{i.id}}', '{{i.sub_category_name}}', '{{i.price}}', '{{i.qty}}' , '{{i.sub_category_img.url}}')" >Update</button>
+          <button class="btn btn-sm btn-danger" onclick="delete_item('{{i.id}}')">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}

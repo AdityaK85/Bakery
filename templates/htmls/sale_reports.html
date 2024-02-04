@@ -1,0 +1,82 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block title %}Orders{% endblock %}
+
+{% block customCDNS %}
+{% endblock %}
+
+{% block customStyles %}
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light">Reports / </span> <span id="braudcamb" >Sales</span>  Reports
+    </h4>
+
+    <div class="row">
+    <div class="col-md-12">
+        <input type="hidden" value="sales" id="check_report" disabled style="display: none;" >
+        <ul class="nav nav-pills flex-column flex-md-row mb-3">
+            <li class="nav-item">
+                <a class="nav-link" id="sale_rep_a"  onclick="getReports(this,  'sales')"  href="javascript:void(0);"
+                ><i class="bx bx-link-alt me-1"></i>Sales Reports</a
+                >
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " id="pur_rep_a" onclick="getReports(this, 'purchased')" href="#"
+                ><i class="bx bx-user me-1"></i> Purchased Reports</a
+                >
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  id="exp_rep_a" onclick="getReports(this ,'expenses')" href="#"
+                ><i class="bx bx-bell me-1"></i> Expense Reports</a
+                >
+            </li>
+        </ul>
+        <div class="row">
+            <div class="col-md-6 col-12 mb-md-0 mb-4">
+                <div class="card">
+                    <h5 class="card-header"><span id="card_rep_title" >Sales</span>  reports</h5>
+                    <div class="row container-xxl flex-grow-1 container-p-y">
+                        <div class="col-5 ">
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">From Date</label>
+                                <input type="date" class="form-control form-control-sm" id="from_dt" placeholder="John Doe">
+                              </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="mb-3">
+                                <label class="form-label " for="basic-default-fullname">To Date</label>
+                                <input type="date" class="form-control form-control-sm " id="to_dt" placeholder="John Doe">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="mb-3">
+                                <label class="form-label " for="basic-default-fullname"></label>
+                                <button class="btn btn-sm btn-info my-2" onclick="filterData()" >Search</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top: -33px; padding-bottom: 1px; margin-bottom: 32px;" >
+                    <div class="card-body" id="report_div" style="margin-top: -50px;">
+                        {{rendered}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block customScripts %}   
+    <script type="module" src="{% static 'js/sales_reports.js' %}"></script>
+{% endblock %}

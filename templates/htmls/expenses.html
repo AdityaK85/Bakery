@@ -1,0 +1,165 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block title %}Purchase{% endblock %}
+
+{% block customCDNS %}
+
+{% endblock %}
+
+{% block customStyles %}
+{% endblock %}
+
+
+
+{% block content %}
+
+<button
+	type="button"
+	class="btn btn-primary float-end "
+	data-bs-toggle="modal"
+	data-bs-target="#backDropModal"
+	>New </button>
+
+    <div class="row justify-content-center text-left">
+        <div class="col-xl-12">
+            <div class="mb-4">
+                <h4>Expenses</h4>
+            </div>
+        </div>
+    </div>
+
+    
+
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive text-nowrap">
+            {{rendered}}
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
+	<div class="modal-dialog">
+	  <form class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="backDropModalTitle">New Expenses</h5>
+		  <button
+			type="button"
+			class="btn-close"
+			data-bs-dismiss="modal"
+			aria-label="Close"
+		  ></button>
+		</div>
+
+		<div class="modal-body">
+		  <div class="row g-2">
+            <div class="col-6 mb-0">
+                <label for="emailBackdrop" class="form-label">Expenses Category</label>
+                <input
+                    type="text"
+                    id="category_name"
+                    class="form-control"
+                    placeholder="Expenses category"
+                />
+            </div>
+
+        <div class="col-6 mb-0">
+            <label for="emailBackdrop" class="form-label">Date</label>
+            <input
+            type="date"
+            id="exp_dt"
+            class="form-control"
+            placeholder="Date"
+            />
+          </div>
+        
+              
+          <div class="col-6 mb-0">
+              <label for="emailBackdrop" class="form-label">Amount</label>
+              <input
+                  type="text"
+                  id="exp_amt"
+                  class="form-control"
+                  placeholder="Enter Expenses Amount"
+                  oninput="this.value = this.value.replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10"
+              />
+          </div>
+
+          
+
+          <div class="col-6 mb-0">
+              <label for="emailBackdrop" class="form-label">Recipt</label>
+              <input
+                  type="file"
+                  id="exp_recipt"
+                  class="form-control"
+                  placeholder="Select Expense Recipt"
+              />
+          </div>
+
+          <div class="col-12 mb-0">
+              <label for="emailBackdrop" class="form-label">Description </label>
+              <textarea name="" class="form-control" id="description" placeholder="Please specify the type of expenses you would like to enter" cols="30" rows="3"></textarea>
+          </div>
+
+      </div>
+
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+        Close
+        </button>
+        <button type="button" onclick="add_expenses()" id="model_save_btn" class="btn btn-primary" value="Save" >Save</button>
+      </div>
+
+	  </form>
+	  </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- View Purchased -->
+
+<div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body"><div class="card mb-4">
+        <div class="card-body">
+          <h4 class="modal-title"  id="element_name_model" ></h4>
+          <h5 class="card-title" id="purchase_dt_model" ></h5>
+          <div class="card-subtitle text-muted">Ourbakery.com</div>
+          <p class="card-text" id="note_model" style="margin-bottom: 0rem;" ></p>
+          Quantity : <span id="qty_model" ></span> <span id="measure_model" ></span> <br>
+          Unit Price :  <a href="javascript:void(0)" class="card-link mx-2" id="unit_price_model" ></a>
+          Total Price : <a href="javascript:void(0)" class="card-link" id="total_price_model" ></a>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+
+{% block customScripts %}   
+
+<script type="module" src="{% static 'js/expenses.js' %}"></script>
+	
+{% endblock %}

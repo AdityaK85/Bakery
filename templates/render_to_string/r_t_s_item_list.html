@@ -1,0 +1,82 @@
+{% load static %}
+
+
+{% for i in item_obj %}
+
+<div class="col-md-12">
+  <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-3">
+        <img class="card-img my-4 mx-3 rounded card-img-left" src="{% if i.sub_category_img %} {{i.sub_category_img.url}} {% else %} {% static 'assets/img/elements/12.jpg' %} {% endif %} " alt="Card image">
+      </div>
+      <div class="col-md-8 mx-3">
+        <div class="card-body">
+          <h5 class="card-title">{{i.sub_category_name}}</h5>
+          <p class="card-text">
+              In Stock : {{i.qty}} | Price : <span id="main_price_{{i.id}}" > {{i.price}}</span> /-
+          </p>
+          <div class="row">
+            <div class="col-5">
+              <div class="input-group input-group-sm">
+                <button class="btn btn-info" type="button" >QTY</button>
+                <input type="text" id="sale_qty_{{i.id}}" class="form-control" value="1" onkeyup="changePrice( this.value,   '{{i.id}}' , '{{i.price}}' )"  placeholder="" oninput="this.value = this.value.replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1'); if(parseFloat(this.value) > {{i.qty}}) this.value = '{{i.qty}}'; if(parseFloat(this.value) < 1) this.value = '1';" >
+              </div>
+            </div>
+
+            <div class="col-6" style="margin-left: -5%;" >
+              <div class="input-group input-group-sm">
+                <button class="btn btn-info" type="button" >Price</button>
+                <input type="text" class="form-control" disabled value="{{i.price}}"  id="sale_price_{{i.id}}" placeholder="Price" oninput="this.value = this.value.replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1');" >
+              </div>
+            </div>
+            <div class="col-1" style="margin-left: -15px;">
+              <button class="btn btn-sm btn-info" id="add_to_list_btn_{{i.id}}" onclick="Add_to_list('{{i.id}}', `{{i.sub_category_img.url}}`, `{{i.sub_category_name}}`, document.getElementById('sale_price_{{i.id}}').value, document.getElementById('sale_qty_{{i.id}}').value , '{{i.price}}' )" id="addToListBtn_{{i.id}}" >Add</button>
+              <button id="update_to_list_btn_{{i.id}}" style="display: none;" onclick="update_item('{{i.id}}')" class="btn btn-sm btn-info">Update</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endfor %}
+
+
+
+<script>
+  var item_change_list_id = window.change_item_id
+  var item_id_list = [{% for i in item_obj %} {{i.id}}, {% endfor %}];
+
+  for (var i = 0; i < item_list.length; i++) {
+    var item = item_list[i];
+
+    for (var key in item) {
+      if (item.hasOwnProperty(key)) {
+        var itemCardId = key;
+        var itemDetails = item[key];
+
+        for (var prop in itemDetails) {
+          if (itemDetails.hasOwnProperty(prop)) {
+            if (prop === 'qty') {
+                $(`#sale_qty_${itemDetails.id}`).val(itemDetails[prop]);
+            }
+            if (prop === 'price') {
+                $(`#sale_price_${itemDetails.id}`).val(itemDetails[prop]);
+            }
+
+            $(`#add_to_list_btn_${itemDetails.id}`).hide()
+            $(`#update_to_list_btn_${itemDetails.id}`).show()
+            console.log(prop + ": " + itemDetails[prop]);
+          }
+        }
+      }
+    }
+  }
+
+
+ 
+
+</script>

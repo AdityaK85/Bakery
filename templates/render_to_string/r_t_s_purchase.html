@@ -1,0 +1,31 @@
+<table id="purchase_order_tbl" class="table table-bordered" >
+    <thead>
+    <tr>
+        <th>Sr.no</th>
+        <th>Purchased Date</th>
+        <th>Element</th>
+        <th>Quantity</th>
+        <th>Measure</th>
+        <th>Unit Price</th>
+        <th>Total Price</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for i in purchase_obj %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.purchase_dt}}</td>
+                <td>{{i.element}}</td>
+                <td>{{i.qty}}</td>
+                <td>{{i.unit_of_measurement}}</td>
+                <td>{{i.unit_price}}</td>
+                <td>{{i.price}}</td>
+                <td>
+                <a onclick="viewPurchased( '{{i.purchase_dt}}' , '{{i.element}}' , '{{i.qty}}' , '{{i.unit_of_measurement}}' , '{{i.unit_price}}' , '{{i.price}}' , '{{i.note}}' )" > <i class='bx bxs-zoom-in'></i> </a>
+                <a onclick="delete_item('{{i.id}}')" style="color: red;" > <i class='bx bxs-trash-alt mx-2'></i> </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
