@@ -35,7 +35,7 @@ def index(request , user):
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @handle_admin_page_exception
-def Categories(request , user):
+def CategoriesItem(request , user):
     cat_obj = Category.objects.all().order_by('-id')
     string = render_to_string('render_to_String/r_t_s_categoryItem.html', {'category_obj': cat_obj})
     context = {'string': string} 

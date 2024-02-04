@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 admin_urls = [
     path('', login),
     path('Dasboard/', index),
-    path('Categories/', Categories),
+    path('Categories/', CategoriesItem),
     path('Sales/', Sales),
     path('Purchase/', Purchase),
     path('RecivedOrders/', RecivedOrders),
