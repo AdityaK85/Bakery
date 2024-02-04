@@ -57,7 +57,7 @@ def handle_admin_page_exception(func):
 				return redirect('/')
 		except:
 			traceback.print_exc()
-		return render(request, 'error_page.html')
+		return render(request, 'htmls/error_page.html')
 		# return HttpResponse('Something went wrong')
 	return wrapper
 
