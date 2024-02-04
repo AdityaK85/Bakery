@@ -33,6 +33,8 @@ def index(request , user):
     context = {'total_revenue': total_revenue , 'sales_count' : sales_count , 'purchased_count' : purchased_count }
     return render( request,  'htmls/dashboard.html' , context)
 
+
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @handle_admin_page_exception
 def CategoriesItem(request , user):
